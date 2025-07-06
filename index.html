@@ -1,0 +1,258 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en" class="supernova">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1">
+<meta name="HandheldFriendly" content="true">
+<title>Mobile App Feedback Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<style type="text/css">
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f1f5f9;
+  }
+  .form-all {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .form-header-group {
+    background: linear-gradient(135deg, #ff2c55, #25f4ee);
+  }
+  .action-btn {
+    transition: all 0.3s ease;
+  }
+  .action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+<div class="form-all w-full max-w-2xl mx-auto bg-white rounded-2xl p-6 md:p-8 lg:p-12">
+  
+  <!-- Page 1: Eligibility Checklist -->
+  <div id="eligibilitySection">
+    <div class="form-header-group header-large mb-8 p-6 rounded-xl text-white text-center">
+      <h1 class="text-3xl md:text-4xl font-bold">Mobile App Feedback Study</h1>
+      <p class="mt-2 text-base md:text-lg">Share your feedback on a popular social media app.</p>
+    </div>
+
+    <div class="eligibility-container bg-gray-50 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">Eligibility Check</h2>
+      <p class="text-gray-600 mb-6">Please answer the following questions to continue.</p>
+      
+      <div class="space-y-4">
+        <div>
+            <p class="question-text text-gray-700 font-semibold mb-2">1. Is the TikTok app currently (or has it ever been) downloaded to this device?</p>
+            <div class="flex gap-4"><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="installed_tiktok" value="No" class="form-radio text-green-500 h-5 w-5"><span>No</span></label><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="installed_tiktok" value="Yes" class="form-radio text-red-500 h-5 w-5"><span>Yes</span></label></div>
+        </div>
+        <div>
+            <p class="question-text text-gray-700 font-semibold mb-2">2. Have you ever downloaded TikTok using your current Apple ID?</p>
+            <div class="flex gap-4"><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="new_apple_id" value="No" class="form-radio text-green-500 h-5 w-5"><span>No</span></label><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="new_apple_id" value="Yes" class="form-radio text-red-500 h-5 w-5"><span>Yes</span></label></div>
+        </div>
+      </div>
+
+      <div id="eligibilityErrorMessage" class="text-red-600 my-4 text-center" style="display: none;">
+        Please answer all questions to proceed.
+      </div>
+
+      <button id="checkEligibility" class="action-btn w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg mt-6">
+        Check Eligibility
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 2: Instructions and Task -->
+  <div id="taskSection" style="display:none;">
+      <div class="form-header-group header-large mb-8 p-6 rounded-xl text-white text-center">
+        <h1 class="text-3xl md:text-4xl font-bold">You're Eligible!</h1>
+      </div>
+      
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg">
+          <h2 class="text-xl font-semibold text-blue-800 mb-3">How to Participate</h2>
+          <ol class="list-decimal list-inside text-gray-700 space-y-3">
+              <li><strong>Click the Link & Install:</strong> Use the "Install TikTok" button below. This will take you to the App Store where you will download and install the app.</li>
+              <li><strong>Open the App & Search:</strong> Open TikTok, tap the search icon, and search for "new to tiktok account".</li>
+              <li><strong>Take a Screenshot:</strong> Take a screenshot of the search results page.</li>
+              <li><strong>Upload & Verify:</strong> Upload that specific screenshot below and click "Verify Screenshot".</li>
+              <li><strong>Share Feedback:</strong> Once verified, a text box will appear. Please describe your first-time experience using the app.</li>
+          </ol>
+      </div>
+
+      <div class="text-center my-6">
+        <a href="https://smrturl.co/a/scd13071c18/86?s1=" target="_blank" class="action-btn inline-block bg-black text-white font-bold py-4 px-8 rounded-lg text-lg">
+          📱 Install TikTok
+        </a>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-lg border mt-8">
+          <label class="form-label font-semibold text-gray-700">Upload Your Screenshot of the Search Results</label>
+          <input type="file" id="imageUpload" accept="image/*" class="w-full mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+      </div>
+
+      <div class="mt-6 text-center">
+          <button id="validateButton" class="action-btn w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">Verify Screenshot</button>
+      </div>
+      
+      <div id="validationResult" class="mt-4 text-center font-semibold" style="display: none;"></div>
+      
+      <div id="feedbackSection" class="mt-8" style="display: none;">
+          <div class="bg-gray-50 p-4 rounded-lg border">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Share Your First-Time Experience</h3>
+              <p class="text-sm text-gray-600 mb-3">Please describe your first impression of the app. What did you like or dislike?</p>
+              <textarea id="feedbackText" rows="5" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Write your feedback here..."></textarea>
+          </div>
+          <div class="mt-8 text-center">
+              <button id="submitTask" class="action-btn w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg" disabled>Complete Study</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Ineligible Message -->
+  <div id="ineligibleSection" style="display:none;">
+      <div class="text-center p-6 bg-red-50 border border-red-200 rounded-lg">
+          <h2 class="text-xl font-semibold text-red-800">Sorry!</h2>
+          <p class="mt-2 text-gray-700">This study is only available for new TikTok users. Thank you for your interest.</p>
+          <a id="ineligibleLink" href="#" target="_top" class="action-btn inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Exit Study</a>
+      </div>
+  </div>
+  
+  <!-- Thank You Page -->
+  <div id="thankYouSection" style="display:none;">
+      <div class="text-center p-8 bg-green-50 border border-green-200 rounded-lg">
+          <h2 class="text-2xl font-bold text-green-800">✅ Thank You!</h2>
+          <p class="mt-4 text-gray-700">Your participation is complete. Please click the link below to finish.</p>
+          <a id="finalLink" href="#" target="_top" class="action-btn inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Finish</a>
+      </div>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let transactionId = urlParams.get('RID') || 'unknown';
+
+    const checkEligibilityBtn = document.getElementById('checkEligibility');
+    const eligibilitySection = document.getElementById('eligibilitySection');
+    const taskSection = document.getElementById('taskSection');
+    const ineligibleSection = document.getElementById('ineligibleSection');
+    const errorMessage = document.getElementById('eligibilityErrorMessage');
+    
+    const validateButton = document.getElementById('validateButton');
+    const imageUpload = document.getElementById('imageUpload');
+    const validationResult = document.getElementById('validationResult');
+    const feedbackSection = document.getElementById('feedbackSection');
+    const feedbackText = document.getElementById('feedbackText');
+    const submitTaskBtn = document.getElementById('submitTask');
+    const thankYouSection = document.getElementById('thankYouSection');
+
+    const ineligibleLink = document.getElementById('ineligibleLink');
+    const finalLink = document.getElementById('finalLink');
+
+    // Set redirect links
+    ineligibleLink.href = `https://samplicio.us/s/ClientCallBack.aspx?RIS=20&RID=${transactionId}`;
+    finalLink.href = `https://notch.insights.supply/cb?token=c9212f78-5226-4e99-bd51-29845ea96d16&RID=${transactionId}`;
+
+
+    // Eligibility Check
+    checkEligibilityBtn.addEventListener('click', function() {
+        const installedTiktok = document.querySelector('input[name="installed_tiktok"]:checked');
+        const newAppleId = document.querySelector('input[name="new_apple_id"]:checked');
+
+        if (!installedTiktok || !newAppleId) {
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
+        errorMessage.style.display = 'none';
+
+        if (installedTiktok.value === 'No' && newAppleId.value === 'No') {
+            eligibilitySection.style.display = 'none';
+            taskSection.style.display = 'block';
+        } else {
+            eligibilitySection.style.display = 'none';
+            ineligibleSection.style.display = 'block';
+        }
+    });
+
+    // OCR Validation
+    validateButton.addEventListener('click', async function() {
+        if (!imageUpload.files || imageUpload.files.length === 0) {
+            validationResult.textContent = '❌ Please upload the screenshot.';
+            validationResult.style.color = 'red';
+            validationResult.style.display = 'block';
+            return;
+        }
+
+        const file = imageUpload.files[0];
+        validationResult.style.display = 'block';
+        validationResult.style.color = 'orange';
+        validationResult.innerHTML = '<div class="loader mx-auto"></div><p>Analyzing screenshot...</p>';
+        validateButton.disabled = true;
+
+        try {
+            const worker = await Tesseract.createWorker('eng');
+            const { data: { text } } = await worker.recognize(file);
+            await worker.terminate();
+            
+            if (text.toLowerCase().includes('new to tiktok')) {
+                validationResult.textContent = '✅ Screenshot validated successfully! Please share your feedback below.';
+                validationResult.style.color = 'green';
+                feedbackSection.style.display = 'block'; // Show feedback section
+                checkCompletion();
+            } else {
+                validationResult.textContent = '❌ "new to tiktok" search result not found. Please upload the correct screenshot.';
+                validationResult.style.color = 'red';
+                feedbackSection.style.display = 'none'; // Hide feedback section
+                submitTaskBtn.disabled = true;
+            }
+        } catch (error) {
+            console.error("OCR Error:", error);
+            validationResult.textContent = '❌ Error analyzing image. Please try again.';
+            validationResult.style.color = 'red';
+            submitTaskBtn.disabled = true;
+        } finally {
+            validateButton.disabled = false;
+        }
+    });
+    
+    // Check if both screenshot and feedback are done
+    function checkCompletion() {
+        const feedback = feedbackText.value.trim();
+        const isVerified = validationResult.textContent.includes('successfully');
+        
+        if (isVerified && feedback.length > 0) {
+            submitTaskBtn.disabled = false;
+        } else {
+            submitTaskBtn.disabled = true;
+        }
+    }
+    
+    feedbackText.addEventListener('input', checkCompletion);
+    
+    // Final Submission
+    submitTaskBtn.addEventListener('click', function() {
+        taskSection.style.display = 'none';
+        thankYouSection.style.display = 'block';
+    });
+});
+</script>
+
+</body>
+</html>
