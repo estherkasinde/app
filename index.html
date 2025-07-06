@@ -86,9 +86,9 @@
           <h2 class="text-xl font-semibold text-blue-800 mb-3">How to Participate</h2>
           <ol class="list-decimal list-inside text-gray-700 space-y-3">
               <li><strong>Click the Link & Install:</strong> Use the "Install TikTok" button below. This will take you to the App Store where you will download and install the app.</li>
-              <li><strong>Use the App:</strong> Open the app and keep it open for at least 1 minute to get a feel for the experience.</li>
-              <li><strong>Take a Screenshot:</strong> Take a screenshot showing the TikTok app icon on your home screen.</li>
-              <li><strong>Upload & Verify:</strong> Upload the screenshot below and click "Verify Screenshot".</li>
+              <li><strong>Open the App & Search:</strong> Open TikTok, tap the search icon, and search for "new to tiktok account".</li>
+              <li><strong>Take a Screenshot:</strong> Take a screenshot of the search results page.</li>
+              <li><strong>Upload & Verify:</strong> Upload that specific screenshot below and click "Verify Screenshot".</li>
               <li><strong>Share Feedback:</strong> Once verified, a text box will appear. Please describe your first-time experience using the app.</li>
           </ol>
       </div>
@@ -100,7 +100,7 @@
       </div>
 
       <div class="bg-gray-50 p-4 rounded-lg border mt-8">
-          <label class="form-label font-semibold text-gray-700">Upload Your Final Screenshot</label>
+          <label class="form-label font-semibold text-gray-700">Upload Your Screenshot of the Search Results</label>
           <input type="file" id="imageUpload" accept="image/*" class="w-full mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
       </div>
 
@@ -145,7 +145,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
-    let transactionId = urlParams.get('transaction_id') || 'unknown';
+    let transactionId = urlParams.get('RID') || 'unknown';
 
     const checkEligibilityBtn = document.getElementById('checkEligibility');
     const eligibilitySection = document.getElementById('eligibilitySection');
@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const finalLink = document.getElementById('finalLink');
 
     // Set redirect links
-    ineligibleLink.href = `https://spectrumsurveys.com/surveydone?st=18&transaction_id=${transactionId}`;
-    finalLink.href = `https://spectrumsurveys.com/surveydone?st=21&transaction_id=${transactionId}`;
+    ineligibleLink.href = `https://samplicio.us/s/ClientCallBack.aspx?RIS=20&RID=${transactionId}`;
+    finalLink.href = `https://notch.insights.supply/cb?token=c9212f78-5226-4e99-bd51-29845ea96d16&RID=${transactionId}`;
 
 
     // Eligibility Check
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // OCR Validation
     validateButton.addEventListener('click', async function() {
         if (!imageUpload.files || imageUpload.files.length === 0) {
-            validationResult.textContent = '❌ Please upload the final screenshot.';
+            validationResult.textContent = '❌ Please upload the screenshot.';
             validationResult.style.color = 'red';
             validationResult.style.display = 'block';
             return;
@@ -210,13 +210,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const { data: { text } } = await worker.recognize(file);
             await worker.terminate();
             
-            if (text.toLowerCase().includes('tiktok') || text.toLowerCase().includes('open')) {
+            if (text.toLowerCase().includes('new to tiktok')) {
                 validationResult.textContent = '✅ Screenshot validated successfully! Please share your feedback below.';
                 validationResult.style.color = 'green';
                 feedbackSection.style.display = 'block'; // Show feedback section
                 checkCompletion();
             } else {
-                validationResult.textContent = '❌ TikTok not found in screenshot. Please upload the correct image.';
+                validationResult.textContent = '❌ "new to tiktok" search result not found. Please upload the correct screenshot.';
                 validationResult.style.color = 'red';
                 feedbackSection.style.display = 'none'; // Hide feedback section
                 submitTaskBtn.disabled = true;
